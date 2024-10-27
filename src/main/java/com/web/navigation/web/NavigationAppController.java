@@ -43,5 +43,10 @@ public class NavigationAppController {
         return new ResponseEntity<>(fileExecution,HttpStatus.OK);
     }
 
-    
+    @GetMapping("/getval")
+    public ResponseEntity<String> testingread() {
+        
+        return new ResponseEntity<>(navigationService.testingRead(),HttpStatus.OK);
+    }
+        
 }

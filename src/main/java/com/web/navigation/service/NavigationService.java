@@ -9,6 +9,6 @@ import com.web.navigation.entity.DataToSend;
 public interface NavigationService {
 
     String executeNavigation(DataToSend startCors,DataToSend endCors);
-
+    String testingRead();
     
 }
