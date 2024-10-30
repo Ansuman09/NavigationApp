@@ -54,6 +54,9 @@ void mapResultSet(unordered_map<Pair,cell,hash_pair> cellDetails,Pair dest,cv::M
     int row=dest.first;
     int col=dest.second;
 
+    std::ofstream outputFile("output.txt");
+
+
     stack<Pair> path;
     while (!(cellDetails[make_pair(row,col)].parent_i==row && cellDetails[make_pair(row,col)].parent_j==col)){
         path.push(make_pair(row,col));
@@ -66,7 +69,10 @@ void mapResultSet(unordered_map<Pair,cell,hash_pair> cellDetails,Pair dest,cv::M
     };
 
     Pair prev=path.top();
-    while (!path.empty()){
+
+        if (outputFile.is_open()){
+            outputFile << "[";
+        while (!path.empty()){
         Pair p = path.top();
 
         //draw path by joining nodes
@@ -84,8 +90,26 @@ void mapResultSet(unordered_map<Pair,cell,hash_pair> cellDetails,Pair dest,cv::M
         cv::circle(image,currPoint,radius,color,thickness);
         path.pop();
         //map path
-        printf("(%d,%d)->",p.first,p.second);
+        char buffer[100];
+        if (path.empty()){
+            sprintf(buffer, "{\"xcor\" : %d, \"ycor\" : %d}", p.first, p.second);
+            std::string path(buffer);
+            outputFile << path;
+            continue;
+        }
+        sprintf(buffer, "{\"xcor\" : %d, \"ycor\" : %d},", p.first, p.second);
+        std::string path(buffer);
+        outputFile << path;
+        
     }
+        outputFile<<"]";
+        outputFile.close();
+    
+    }
+    else{
+        cout<<"Error opening file\n";
+    }
+    
 };
 
 //check if destignation is reached
@@ -190,7 +214,7 @@ void onMouse(int event,int x,int y, int flags, void* param){
 
 
 int main(){
-    cv::Mat image= cv::imread("../../Downloads/map8.png");
+    cv::Mat image= cv::imread("file path");
     if (image.empty()) {
         std::cout << "Could not read the image" << std::endl;
         return 1;
