@@ -19,14 +19,14 @@ import com.web.navigation.entity.DataToSend;
 
 @Service
 public class NavigationServiceImpl implements NavigationService{
-    private final String fileDirectoryToUse="/home/ansuman/Documents/c++_learn/";
+    private final String fileDirectoryToUse="";
     
     @Override
     public String executeNavigation(DataToSend startPoint, DataToSend destPoint) {
-     
+        
         String DataFilePathToWrite=fileDirectoryToUse+"input.txt";
         String DataFilePathToRead = fileDirectoryToUse+"output.txt";
-        String result="";
+        String result="";    
         try{
         BufferedWriter writer=new BufferedWriter(new FileWriter(DataFilePathToWrite));
         System.out.println(Integer.toString(startPoint.getXCor()));
@@ -41,10 +41,9 @@ public class NavigationServiceImpl implements NavigationService{
         // writer.write(startPoint.getYcor());
         writer.close();
         
-        ProcessBuilder builder = new ProcessBuilder(fileDirectoryToUse+"finalfileviewer");
+        ProcessBuilder builder = new ProcessBuilder("./finalfileviewer");
 
         builder.redirectInput(new File(DataFilePathToWrite));
-        builder.redirectOutput(new File(DataFilePathToRead));
         Process process = builder.start();
         
 
