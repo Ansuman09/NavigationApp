@@ -8,7 +8,7 @@ import com.web.navigation.entity.DataToSend;
 @Service
 public interface NavigationService {
 
-    String executeNavigation(DataToSend startCors,DataToSend endCors);
+    String executeNavigation(DataToSend startCors,DataToSend endCors,String mapname);
     String testingRead();
     
 }

@@ -20,9 +20,10 @@ import com.web.navigation.entity.DataToSend;
 @Service
 public class NavigationServiceImpl implements NavigationService{
     private final String fileDirectoryToUse="";
+    private final String mapLocation="/home/ansuman/Downloads";
     
     @Override
-    public String executeNavigation(DataToSend startPoint, DataToSend destPoint) {
+    public String executeNavigation(DataToSend startPoint, DataToSend destPoint,String mapname) {
         
         String DataFilePathToWrite=fileDirectoryToUse+"input.txt";
         String DataFilePathToRead = fileDirectoryToUse+"output.txt";
@@ -30,6 +31,9 @@ public class NavigationServiceImpl implements NavigationService{
         try{
         BufferedWriter writer=new BufferedWriter(new FileWriter(DataFilePathToWrite));
         System.out.println(Integer.toString(startPoint.getXCor()));
+        System.out.println(mapLocation+"/"+mapname);
+        writer.write(mapLocation+"/"+mapname);
+        writer.newLine();
         writer.write(Integer.toString(startPoint.getXCor()));
         writer.newLine();
         writer.write(Integer.toString(startPoint.getYCor()));

@@ -214,7 +214,11 @@ void onMouse(int event,int x,int y, int flags, void* param){
 
 
 int main(){
-    cv::Mat image= cv::imread("file-path");
+    string filePath;
+    cout<<"Where is the file ?\n";
+    cin>>filePath;
+
+    cv::Mat image= cv::imread(filePath);
     if (image.empty()) {
         std::cout << "Could not read the image" << std::endl;
         return 1;

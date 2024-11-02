@@ -20,6 +20,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -31,8 +32,8 @@ public class NavigationAppController {
     @Autowired
     NavigationService navigationService;
 
-    @PostMapping("/findpath")
-    public ResponseEntity<String> getMethodName(@RequestBody List<DataToSend> points) {
+    @PostMapping("/findpath/{mapname}")
+    public ResponseEntity<String> getMethodName(@RequestBody List<DataToSend> points,@PathVariable String mapname) {
         DataToSend startPoint=points.get(0);
         DataToSend endPoint=points.get(1);
 
@@ -40,7 +41,7 @@ public class NavigationAppController {
             System.out.println(point.getXCor());
             System.out.println(point.getYCor());
         }
-        String fileExecution=navigationService.executeNavigation(startPoint, endPoint);
+        String fileExecution=navigationService.executeNavigation(startPoint, endPoint,mapname);
         return new ResponseEntity<>(fileExecution,HttpStatus.OK);
     }
 
